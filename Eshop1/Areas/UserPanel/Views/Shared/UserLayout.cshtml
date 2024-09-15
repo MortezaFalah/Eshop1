@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <partial name="_MetaTags" />
+    <title>@ViewData["Title"] | پنل کاربری یکتا کالا</title>
+    <partial name="_StyleRefrences" />
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        <!-- start of page-header -->
+        <partial name="_SiteHeader" />
+        <!-- end of page-header -->
+        <partial name="_ResponsiveHeader" />
+        <!-- start of page-content -->
+        <main class="page-content">
+            <div class="container">
+                <div class="row mb-5">
+
+                    @await Component.InvokeAsync("DashboardVC")
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- start of remove-from-favorite-modal -->
+            <!-- end of remove-from-favorite-modal -->
+        </main>
+
+
+
+        <!-- end of page-content -->
+        <partial name="_Footer" />
+    </div>
+
+
+    <partial name="JsRefrences" />
+
+    <partial name="/Views/Shared/_SiteNotification.cshtml" />
+
+    @RenderSection("Script", false);
+
+
+
+</body>
+
+</html>

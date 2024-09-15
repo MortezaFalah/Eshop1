@@ -1,0 +1,56 @@
+﻿
+
+@if (TempData["SuccessMessage"]!=null){
+    <script>
+        Swal.fire({
+            title: "عملیات موفق",
+            text: "@TempData["SuccessMessage"]",
+            icon: "success"
+        });
+    </script>
+}
+
+
+@if (TempData["DuplicatedMobile"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "موبایل تکراری",
+            text: "@TempData["DuplicatedMobile"]",
+            icon: "warning"
+        });
+    </script>
+}
+@if (TempData["NotFound"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "پیدا نشد",
+            text: "@TempData["NotFound"]",
+            icon: "warning"
+        });
+    </script>
+}
+@if (TempData["UserIsBan"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "حساب کاربری شما مسدود شده",
+            text: "@TempData["UserIsBan"]",
+            icon: "warning"
+        });
+    </script>
+}
+
+@if (TempData["SuccessfullyLogin"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "ورود شما با موفقیت انجام شد",
+            text: "@TempData["SuccessfullyLogin"]",
+            icon: "success"
+        });
+    </script>
+}
+
+

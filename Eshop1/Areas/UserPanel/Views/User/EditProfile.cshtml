@@ -1,0 +1,40 @@
+﻿@model EditProfileViewModel
+
+<div class="ui-box bg-white mb-5 col-md-7">
+    <div class="ui-box-title">اطلاعات شخصی</div>
+    <div class="ui-box-content">
+        <div class="row">
+            <form asp-action="EditProfile" asp-controller="User" asp-area="UserPanel" class="auth-form">
+                <!-- start of form-element -->
+                <div class="form-element-row mb-5">
+                    <input asp-for="FirstName" type="text" class="form-control" placeholder="نام">
+                    <span asp-validation-for="FirstName" class="form-control"></span>
+                </div>
+                <div class="form-element-row mb-5">
+                    <input asp-for="LastName" type="text" class="form-control" placeholder="نام خانوادگی">
+                    <span asp-validation-for="LastName" class="form-control"></span>
+                </div>
+                <div class="form-element-row mb-5">
+                    <input asp-for="Email" type="text" class="form-control" placeholder="ایمیل">
+                    <span asp-validation-for="Email" class="form-control"></span>
+                </div>
+
+                <!-- end of form-element -->
+                <!-- start of form-element -->
+                <div class="form-element-row mb-3">
+                    <button class="btn btn-primary" type="submit">ویرایش</button>
+                </div>
+                <!-- end of form-element -->
+                <!-- start of form-element -->
+                <div class="form-element-row">
+                </div>
+                <!-- end of form-element -->
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+

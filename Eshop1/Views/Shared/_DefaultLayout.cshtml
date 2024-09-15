@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <partial name="_MetaTags" />
+    <title>@ViewData["Title"] | صفحه رسمی یکتا کالا</title>
+    <partial name="_StyleRefrences" />
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        <!-- start of page-header -->
+        <partial name="_SiteHeader" />
+        <!-- end of page-header -->
+        <partial name="_ResponsiveHeader" />
+        <!-- start of page-content -->
+        @RenderBody()
+        <!-- end of page-content -->
+        <partial name="_Footer" />
+    </div>
+
+
+    <partial name="JsRefrences" />
+
+    <partial name="/Views/Shared/_SiteNotification.cshtml" />
+
+    @RenderSection("Script",false);
+
+
+ 
+</body>
+
+</html>
