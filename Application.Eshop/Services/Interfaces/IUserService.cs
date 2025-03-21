@@ -21,7 +21,18 @@ namespace Application.Eshop.Services.Interfaces
 
         Task<EditProfileResult> UpdateUserAsync(EditProfileViewModel model);
 
-      
-        
+
+        Task<CreateUserViewModelResult> CreateUserAsync(CreateUserViewModel model);
+
+        Task<UpdateUserViewModel> AdminSideGetForUpdateAsync(int userid);
+
+        Task<UpdateUserViewModelResult> AdminSideUpdateUserAsync(UpdateUserViewModel model);
+
+        Task<bool?> DeleteUserForAdminAsync(int userid);
+
+        Task<User?> GetUserById(int userid);
+
+
+        bool CheckUserHasPermission(int userid , string permissiontitle);
     }
 }

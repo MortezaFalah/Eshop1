@@ -1,0 +1,140 @@
+﻿@using Application.Eshop.Statics
+@using Domain.Eshop.ViewModels.Product.ProductGallery
+
+@model FilterProductGalleryViewModel
+
+@{
+    ViewData["Title"] = "لیست تصاویر محصول";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <form>
+                <input type="hidden" asp-for="ProductId" />
+                <div class="card">
+                    <div class="body">
+                        <div class="table-responsive">
+                            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-6">
+                                        <div class="dataTables_length" id="DataTables_Table_0_length">
+                                            <label>
+                                                نمایش
+                                                <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm">
+                                                    <option value="10">10</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select> ورودی
+                                            </label>
+                                        </div>
+                                      
+                                      
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-6 text-left">
+                                        <div id="DataTables_Table_0_filter" class="dataTables_filter">
+
+
+                                            <label> <button type="submit" asp-action="List" asp-route-ProductId="@Model.ProductId" class="btn btn-primary m-t-15 waves-effect">جستجو</button><input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0"></label>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+
+                                    <button asp-action="Create" asp-controller="ProductGallery" asp-area="Admin" asp-route-ProductId="@Model.ProductId" type="submit" class="btn btn-outline-success btn-border-radius" style="margin-top:25px;">
+                                        افزودن عکس
+
+                                    </button>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table class="table table-hover js-basic-example contact_list dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                            <thead>
+                                                <tr role="row">
+
+                                                    <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width:  145px;" aria-label="تصویر: activate to sort column ascending">تصویر</th>
+                                                    <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width:  145px;" aria-label="تصویر: activate to sort column ascending">عنوان تصویر</th>
+
+                                                    <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width:  145px;" aria-label="تلفن: activate to sort column ascending">کد محصول</th>
+                                                    <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width:  145px;" aria-label="آدرس: activate to sort column ascending">تاریخ ایجاد</th>
+                                                    <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width:   145px;" aria-label="اقدامات: activate to sort column ascending">اقدامات</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.Entities != null)
+                                                {
+                                                    @foreach (var item in Model.Entities)
+                                                    {
+                                                        <tr role="row" class="odd" id="tr-@item.Id">
+
+                                                            <td class="table-img">
+                                                                <img src="@PathTools.ProductImageGalleryPath@item.ImageName" class="img-thumbnail" style="max-width:170px" alt="">
+                                                            </td>
+                                                            <td class="center">@item.Title</td>
+                                                            <td class="center">@item.ProductId</td>
+                                                            <td class="center">
+                                                                @item.CreateDate.ToShamsi()
+                                                            </td>
+                                                            <td class="center">
+
+                                                              @*   <button class="btn tblActnBtn" onclick="delImage(@item.Id)">
+                                                                    <i class="material-icons">delete</i>
+                                                                </button> *@
+                                                                <button class="btn tblActnBtn" onclick="ConfirmDelete('@Url.Action("DeleteImageGallery","ProductGallery",new { id=item.Id , productid=item.ProductId})',event)">
+                                                                    <i class="material-icons">delete</i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-5">
+                                        <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">نمایش 1 تا 10 از 15 ورودی</div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                            <ul class="pagination">
+                                                <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
+                                                    <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">قبلی</a>
+                                                </li>
+                                                <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                                <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                                <li class="paginate_button page-item next" id="DataTables_Table_0_next">
+                                                    <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">بعدی</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+    //estefade nemishe
+    function delImage(id) {
+        $.get("/Admin/ProductGallery/DeleteImageGallery/"+id, function () {
+            $("#tr-" + id).hide('slow');
+        }
+       }
+</script>

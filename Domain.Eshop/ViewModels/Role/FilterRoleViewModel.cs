@@ -1,0 +1,13 @@
+﻿using Domain.Eshop.ViewModels.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Domain.Eshop.ViewModels.Role
+{
+    public class FilterRoleViewModel:BasePaging<RoleViewModel>
+    {
+    }
+}

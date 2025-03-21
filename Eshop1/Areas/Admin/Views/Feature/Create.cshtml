@@ -1,0 +1,48 @@
+﻿@using Domain.Eshop.ViewModels.Feature
+@model CreateFeatureViewModel
+
+@{
+    ViewData["Title"] = "ایجاد ویژگی محصول";
+}
+
+<h4 style="border:4px">افزودن ویژگی جدید به محصول</h4>
+<br />
+<hr />
+<div class="row  col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <input type="hidden" asp-for="ProductId" name="productid" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Value" class="control-label"></label>
+                <input asp-for="Value" class="form-control" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order" class="control-label"></label>
+                <input asp-for="Order" class="form-control" />
+                <span asp-validation-for="Order" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="افزودن ویژگی جدید" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="List">بازگشت به صفحه قبل</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

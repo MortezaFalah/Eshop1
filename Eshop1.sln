@@ -17,11 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Data.Eshop", "Infra.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.IOC.Eshop", "Infra.IOC.Eshop\Infra.IOC.Eshop.csproj", "{5A95C4A5-1507-4605-A6A1-DB7CAE365FC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eshop1", "Eshop1\Eshop1.csproj", "{FA14F87F-CF53-453E-8BA1-2B5D1C80A6E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eshop1", "Eshop1\Eshop1.csproj", "{FA14F87F-CF53-453E-8BA1-2B5D1C80A6E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{2CFA3AFA-1043-4F0F-BC6B-F1F45602B01B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Eshop", "Application.Eshop\Application.Eshop.csproj", "{187302A3-E03A-4BF3-AE78-B123194CED1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Eshop", "Application.Eshop\Application.Eshop.csproj", "{187302A3-E03A-4BF3-AE78-B123194CED1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

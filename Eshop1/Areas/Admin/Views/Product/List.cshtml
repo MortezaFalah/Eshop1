@@ -1,0 +1,144 @@
+﻿@using Domain.Eshop.ViewModels.Product
+
+@model FilterProductViewModel
+
+
+@{
+    ViewData["Title"] = " محصولات";
+}
+
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card col-md-8" style="padding:20px;">
+            <div class="header">
+                فیلتر ها
+            </div>
+            <div class="body">
+                <form id="filter-search">
+                    <input type="hidden" asp-for="Page" id="Page" name="Page">
+                    <div class="form-group">
+                        <input type="text" id="password" asp-for="ProductName" class="form-control" placeholder="فیلتر بر اساس نام محصول">
+
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="password" asp-for="Price" class="form-control" placeholder="فیلتر بر اساس قیمت">
+
+                    </div>
+                    <div class="form-group">
+                        <select id="password" asp-for="Status" asp-items="Html.GetEnumSelectList<ProductStatus>()" class="form-control" placeholder="فیلتر بر اساس قیمت">
+                           
+                                <option>
+                                  
+                                </option>
+                            
+                        </select> 
+                         @* <select id="password" asp-for="Status" asp-items="Enum.GetValues(typeof(ProductStatus)).Cast<ProductStatus>().ToList()" class="form-control" placeholder="فیلتر بر اساس قیمت">
+                            @foreach (var item in .)
+                            {
+                                <option>
+                                    @item
+                                </option>
+                            }
+                        </select> *@
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" asp-action="List" class="btn btn-primary m-t-15 waves-effect">اعمال فیلتر</button>
+
+                    </div>
+
+
+
+                </form>
+
+
+            </div>
+        </div>
+        <div class="card" style="padding:30px;">
+            <div class="header">
+                <h4> @ViewData["Title"]</h4>
+            </div>
+
+            <div class="body">
+                <table class="table table-hover js-basic-example contact_list dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                    <thead>
+                        <tr role="row">
+
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 112.483px;" aria-label="نام: activate to sort column ascending"> نام محصول</th>
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 154.217px;" aria-label="تلفن: activate to sort column ascending">  قیمت محصول</th>
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 154.217px;" aria-label="تلفن: activate to sort column ascending">  تاریخ</th>
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 154.217px;" aria-label="تلفن: activate to sort column ascending">  وضعیت حذف</th>
+
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 92.4333px;" aria-label="اقدامات: activate to sort column ascending">اقدامات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.Entities)
+                        {
+                            <tr role="row" class="odd">
+                                <td class="center">
+                                    @item.Title
+                                </td>
+
+                                <td class="center">
+                                    @item.Price
+
+                                </td>
+
+                                <td class="center">
+                                    @item.CreateDate
+
+                                </td>
+                                <td class="center">
+                                    @if (item.IsDeleted)
+                                    {
+                                        <div class="badge col-red">حذف شده</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badge col-green"> فعال</div>
+                                    }
+                                </td>
+                                
+                                <td class="center">
+                                    <a class="btn tblActnBtn" asp-area="Admin" asp-controller="ProductColor" asp-action="List" asp-route-ProductId="@item.Id">
+                                        <i class="material-icons">invert_colors</i>
+                                    </a>
+                                    <a class="btn tblActnBtn" asp-area="Admin" asp-controller="ProductFeature" asp-action="List" asp-route-ProductId="@item.Id">
+                                        <i class="material-icons">subject</i>
+                                    </a>
+                                    <a class="btn tblActnBtn" asp-area="Admin" asp-controller="ProductGallery" asp-action="List" asp-route-ProductId="@item.Id">
+                                        <i class="material-icons">perm_media</i>
+                                    </a>
+                                    <a class="btn tblActnBtn" asp-area="Admin" asp-controller="Product" asp-action="Update" asp-route-id="@item.Id">
+                                        <i class="material-icons">mode_edit</i>
+                                    </a>
+                                    <a class="btn btn-tbl-delete" onclick="ConfirmDelete('@Url.Action("Delete","Product",new{id=item.Id})',event)">
+                                        <i class="material-icons">delete_forever</i>
+
+                                    </a>
+                                   
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<partial name="/Areas/Admin/Views/Shared/_AdminPaging.cshtml" model="@Model.GetCurrentPaging()" />
+
+
+
+
+
+

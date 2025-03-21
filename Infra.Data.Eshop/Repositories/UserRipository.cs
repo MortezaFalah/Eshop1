@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -54,6 +55,24 @@ namespace Infra.Data.Eshop.Repositories
         public async Task<User?> GetUserById(int userid)
         {
             return await _context.Users.FirstOrDefaultAsync(r=>r.Id == userid);
+        }
+
+        public async Task<bool> ExistMobileForUpdateAsync(string mobile,int userid)
+        {
+            return  await _context.Users.AnyAsync(v => v.Mobile == mobile && v.Id != userid);
+        }
+
+        public async Task<bool?> DeleteUserForAdminAsync(int userid)
+        {
+        
+           User? user = await GetUserById(userid);
+            if (user != null) 
+            {
+                user.IsDelete = true;
+                await SaveAsync();
+                return true;
+            }
+            return false;
         }
     }
 }

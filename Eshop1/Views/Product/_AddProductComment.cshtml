@@ -1,0 +1,59 @@
+﻿@using Domain.Eshop.ViewModels.ProductComment
+
+@model AddProductCommentViewModel
+
+<div class="row">
+    <div class="col-md-12 mb-md-0 mb-4">
+        <form asp-action="AddProductComment" asp-controller="Product" class="add-comment-product"
+              style="text-align:right;"
+              method="post"
+              data-ajax="true"
+              data-ajax-method="post"
+              data-ajax-success="OnsuccessCreateProductComment">
+
+            <input type="hidden" asp-for="ProductId" />
+            <!-- start of form-element -->
+            <div class="form-element-row mb-3">
+                <label class="label">عنوان نظر شما</label>
+                <input  type="text" class="form-control"
+                       placeholder="عنوان نظر خود را بنویسید..">
+            </div>
+            <!-- end of form-element -->
+            <!-- start of form-element -->
+            <div class="form-element-row mb-3">
+                <label class="label">نقاط قوت</label>
+                <input asp-for="Advantages" type="text" class="form-control"
+                       placeholder="نقاط قوت را بنویسید..">
+            </div>
+            <div class="form-element-row mb-3">
+                <label class="label">نقاط ضعف</label>
+                <input  asp-for="DisAdvantages" type="text" class="form-control"
+                       placeholder="نقاط ضعف را بنویسید..">
+            </div>
+
+            <!-- end of form-element -->
+            <!-- start of form-element -->
+            <div class="form-element-row mb-3">
+                <label class="label">متن نظر شما (اجباری)</label>
+                <textarea asp-for="Text" rows="5" class="form-control"
+                          placeholder="متن نظر خود را بنویسید.."></textarea>
+            </div>
+            <!-- end of form-element -->
+            <div class="text-end mb-3">
+                <button class="btn btn-primary" type="submit">
+                    ثبت نظر <i class="ri-send-plane-fill ms-2"></i>
+                </button>
+            </div>
+        </form>
+        <div class="d-flex align-items-center justify-content-between flex-wrap">
+            <div class="my-2">
+                با “ثبت نظر” موافقت خود را با <a href="#" class="link">قوانین انتشار نظرات</a>
+                در سایت اعلام می‌کنم.
+            </div>
+            <div class="my-2">
+                <a href="#" class="link">انصراف و بازگشت</a>
+            </div>
+        </div>
+    </div>
+</div>
+

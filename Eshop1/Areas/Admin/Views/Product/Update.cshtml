@@ -1,0 +1,175 @@
+﻿@using Application.Eshop.Statics
+@using Domain.Eshop.ViewModels.Product
+@using Domain.Eshop.ViewModels.ProductCategory
+
+@model UpdateProductViewModel
+@{
+    ViewData["Title"] = "ویرایش محصول";
+}
+
+
+
+
+
+<div class="row" style="padding:10px;">
+    <form method="post" asp-action="Update" class="row col-md-12" enctype="multipart/form-data">
+        <input type="hidden" asp-for="ProductId"/>
+        <input type="hidden" asp-for="AvatarName" />
+        <div class="col-md-8">
+            <div class="card">
+
+                <div class="header">
+                    <h4>@ViewData["Title"]</h4>
+                </div>
+                <div class="body">
+
+                 
+                    <div class="form-group">
+                        <label for="email_address">نام</label>
+                        <div class="form-line">
+                            <input type="text" id="email_address1" asp-for="Title" class="form-control" placeholder="نام محصول را وارد کنید">
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="email_address">قیمت محصول</label>
+                        <div class="form-line">
+                            <input type="number" id="email_address1" asp-for="Price" class="form-control" placeholder="قیمت محصول را وارد کنید">
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email_address">تعداد محصول</label>
+                        <div class="form-line">
+                            <input type="number" id="email_address1" asp-for="Quantity" class="form-control" placeholder="تعداد محصول را وارد کنید">
+                            <span asp-validation-for="Quantity" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email_address">گارانتی محصول</label>
+                        <div class="form-line">
+                            <input type="text" id="email_address1" asp-for="Warranty" class="form-control" placeholder="گارانتی محصول را وارد کنید">
+                            <span asp-validation-for="Warranty" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email_address">Slug</label>
+                        <div class="form-line">
+                            <input type="text" id="email_address1" asp-for="slug" class="form-control" placeholder="slug را وارد کنید">
+                            <span asp-validation-for="slug" class="text-danger"></span>
+                        </div>
+                    </div>
+                   
+                    <div class="form-group">
+                        <label for="email_address">توضیحات محصول</label>
+                        <div class="form-line">
+                            <textarea type="text" id="email_address1" asp-for="Description" class="form-control" placeholder="توضیحات محصول را وارد کنید">
+
+                                    </textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                      @{
+                    List<ProductCategoryViewModel>? parentCategory = ViewData["Category"] as List<ProductCategoryViewModel>;
+                    var selectlist = new SelectList(parentCategory, "Id", "Title",Model.CategoryId);
+                    }
+
+
+                    <div class="form-group">
+                    <label class="control-label">انتخاب گروه</label>
+                    <select class="form-control" value="Id" style="font-size:15px" asp-for="CategoryId" name="CategoryId" asp-items="selectlist">
+                    <option disabled="" selected="">انتخاب دسته بندی</option>
+
+
+                    </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="email_address">گارانتی</label>
+                        <div class="form-line">
+                            <input type="text" id="email_address1" asp-for="Warranty" class="form-control" placeholder="گارانتی را وارد کنید">
+                            <span asp-validation-for="Warranty" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                           
+                            <input type="checkbox" asp-for="FreeShiping" name="FreeShiping" >
+                          
+                            <span asp-validation-for="FreeShiping"  >آیا ارسال محصول رایگان است؟</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" asp-action="Update" asp-controller="Product" asp-area="Admin" class="btn btn-success m-t-15 waves-effect">ویرایش محصول</button>
+                        <br /><br />
+                        <a asp-action="List" asp-controller="Product" asp-area="Admin" class="btn btn-primary">بازگشت به صفحه قبل</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="header">
+                    <h5>عکس محصول</h5>
+                </div>
+                <div class="body">
+                    <div class="row">
+                        <div class="contact-photo">
+                              <img id="blah" src="@PathTools.ProductImagePath@Model.AvatarName" class="img-responsive" alt="">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>فایل</span>
+                            <input type="file" id="imgInp" asp-for="NewAvatar" name="NewAvatar">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    <label for="email_address">نقد و بررسی</label>
+                    <div class="form-line">
+                        <input type="text" id="email_address1" asp-for="Review" class="form-control" placeholder="نقد و بررسی را وارد کنید">
+                        <span asp-validation-for="Review" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email_address">هشدار</label>
+                    <div class="form-line">
+                        <input type="text" id="email_address1" asp-for="warning" class="form-control" placeholder="هشدار را وارد کنید">
+                        <span asp-validation-for="warning" class="text-danger"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files
+            if (file) {
+                blah.src = URL.createObjectURL(file)
+            }
+        }
+    </script>
+}
+

@@ -1,0 +1,63 @@
+﻿@using Domain.Eshop.ViewModels.ProductCategory
+@model UpdateProductCategoryViewModel
+
+
+
+@{
+    ViewData["Title"] = "ویرایش دسته بندی";
+}
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+    <h4 style="border:4px">افزودن دسته بندی</h4>
+</div>
+<br />
+
+<div class="row  col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+    <div class="col-md-8 card ">
+        <form asp-action="Update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+           
+            <input  type="hidden" asp-for="Id"/>
+            <div class="col-sm-12">
+                <div class="input-field col s12">
+                    <input asp-for="Title" id="input_text" type="text" data-length="10">
+                    <label asp-for="Title" for="input_text" class="">عنوان </label>
+                    <span asp-validation-for="Title" class="character-counter" style="float: right; font-size: 12px;"></span>
+                </div>
+            </div>
+
+            @{
+                List<ProductCategoryViewModel>? parentCategory = ViewData["PanentCategory"] as List<ProductCategoryViewModel>;
+                var selectlist = new SelectList(parentCategory, "Id", "Title");
+            }
+
+            <!-- #region name -->
+
+            <div class="form-group">
+                <label class="control-label">انتخاب گروه</label>
+                <select class="form-control" value="Id" asp-for="ParentId" style="font-size:15px" asp-items="selectlist">
+                    <option disabled="" selected="">انتخاب دسته بندی</option>
+
+
+                </select>
+            </div>
+
+            <br />   <br />
+            <!-- #endregion -->
+            <div class="form-group">
+                <input type="submit" value="ویرایش دسته بندی" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-action="List">بازگشت به صفحه قبل</a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

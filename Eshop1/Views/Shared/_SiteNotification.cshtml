@@ -54,3 +54,23 @@
 }
 
 
+@if (TempData["DuplicatedMobile"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "شماره موبایل تکراری است",
+            text: "@TempData["DuplicatedMobile"]",
+            icon: "warning"
+        });
+    </script>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <script>
+        Swal.fire({
+            title: "عملیات با شکست مواجه شد",
+            text: "@TempData["ErrorMessage"]",
+            icon: "warning"
+        });
+    </script>
+}

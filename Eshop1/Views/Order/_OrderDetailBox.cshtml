@@ -1,0 +1,119 @@
+﻿@using Application.Eshop.Extentions
+@using Domain.Eshop.ViewModels.OrderDetail
+@using Domain.Eshop.ViewModels.Product.ProductColor
+@model OrderDetailViewModel
+
+
+<div class="cart-item">
+    <div class="cart-item--thumbnail">
+        <a href="#">
+            <img src="/images/carts/01.jpg" alt="">
+        </a>
+    </div>
+    <div class="cart-item--detail">
+        <h2 class="cart-item--title mb-2">
+            <a href="#">
+                @Model.ProductTitle
+            </a>
+        </h2>
+        @if (Model.ProductColor != null && Model.ProductColor.Any())
+        {
+
+            @if (Model.ProductColor?.Count() < 2)
+            {
+                ProductColorViewModel productcolor = Model.ProductColor.First();
+
+                <div class="cart-item--variant mb-2">
+                    <span class="color" style="background-color: #(@productcolor.Color);"></span>
+                    <span class="ms-1">@productcolor.ColorTitle</span>
+                </div>
+            }
+            else
+            {
+                List<ProductColorViewModel>? productcolor = Model.ProductColor?.ToList();
+                foreach (var item in productcolor)
+                {
+                    <div class="cart-item--variant mb-2">
+                        <span class="color"
+                              style="background-color: #(@item.Color);"></span>
+                        <span class="ms-1">@item.ColorTitle</span>
+                    </div>
+                }
+            }
+
+
+        }
+        <div class="cart-item--data mb-4">
+            <ul>
+                <li>
+                    <i class="ri-shield-check-fill text-secondary"></i>
+                    @if (Model.Warranty.Any() && Model.Warranty != null)
+                    {
+                        <span>
+                            @Model.Warranty
+                        </span>
+                    }
+                    else
+                    {
+                        <span>
+                            گارانتی سلامت و اصالت فیزیکی کالا
+                        </span>
+                    }
+                </li>
+                <li>
+                    <i class="ri-store-3-fill text-secondary"></i><span>
+                        اسم
+                        فروشگاه
+                    </span>
+                </li>
+                <li>
+                    <i class="ri-checkbox-multiple-fill text-primary"></i><span>
+                        موجود
+                        در
+                        انبار
+                    </span>
+                    <span class="text-secondary mx-2">|</span>
+                    <i class="ri-truck-fill text-danger"></i><span>
+                        ارسال
+                        (نحوه
+                        ارسال)
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="cart-item--price--actions">
+            <div class="cart-item--actions">
+                <div class="num-block fa-num me-3">
+                    <div class="num-in">
+                        <span class="plus"></span>
+                        <input type="text" class="in-num" value="1"
+                               readonly="">
+                        <span class="minus dis"></span>
+                    </div>
+                </div>
+                <button class="btn btn-link btn-sm text-secondary">
+                    <i class="ri-delete-bin-5-line me-1"></i><span>حذف</span>
+                </button>
+                <button class="btn btn-link btn-sm text-secondary">
+                    <i class="ri-anticlockwise-2-line me-1"></i><span>
+                        ذخیره
+                        در لیست
+                        خرید
+                        بعدی
+                    </span>
+                </button>
+            </div>
+            <div class="cart-item--price fa-num">
+                @*  <div class="cart-item--discount">
+                    <span>تخفیف</span>
+                    <del>10,000</del>
+                    <span class="currency">تومان</span>
+                </div> *@
+                <div class="cart-item--price-now">
+                    <span>@Model.Price.ToMoney()</span>
+                    <span class="currency">تومان</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

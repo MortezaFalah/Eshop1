@@ -1,0 +1,41 @@
+﻿@using Domain.Eshop.ViewModels.Common
+
+@model PagingViewModel
+
+
+@if (Model.PageCount>1)
+{
+    <div class="row">
+        <div class="col-12">
+            <nav class="border-top py-4">
+                <!-- start of pagination -->
+                <ul class="pagination justify-content-center fa-num">
+                    <li class="page-item">
+                        <a class="page-link" onclick="filPageId('@(Model.Page-1)')" aria-label="قبلی">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </a>
+                    </li>
+
+                    @for (int i = Model.StartPage; i <= Model.EndPage; i++)
+                    {
+                        @if (Model.Page == i)
+                        {
+                            <li class="page-item active"><a onclick="filPageId('@i')" class="page-link active">@i</a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item active"><a onclick="filPageId('@i')" class="page-link">@i</a></li>
+                        }
+                    }
+
+                    <li class="page-item">
+                        <a onclick="filPageId('@(Model.Page+1)')" class="page-link" href="#" aria-label="بعدی">
+                            <i class="ri-arrow-left-s-line"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- end of pagination -->
+            </nav>
+        </div>
+    </div>
+}

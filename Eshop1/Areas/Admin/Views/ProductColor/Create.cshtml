@@ -1,0 +1,57 @@
+﻿@using Domain.Eshop.ViewModels.Product.ProductColor
+
+@model CreateProductColorViewModel
+
+@{
+    ViewData["Title"] = "افزودن رنگ جدید به محصول";
+}
+
+<h4 style="border:4px">افزودن رنگ به محصول</h4>
+<br />
+<hr />
+<div class="row  col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-8 card" >
+        <form asp-action="Create" asp-controller="ProductColor">
+            <input type="hidden" asp-for="ProductId" name="productid" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Color" class="control-label"></label>
+                <input asp-for="Color" type="color" class="form-control">
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ColorTitle" class="control-label"></label>
+                <input asp-for="ColorTitle" class="form-control" />
+                <span asp-validation-for="ColorTitle" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Count" class="control-label"></label>
+                <input asp-for="Count" class="form-control" />
+                <span asp-validation-for="Count" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+
+                <label>
+                    <input type="checkbox" asp-for="IsDefault">
+                    <span> آیا این رنگ پیش‌فرض محصول است؟</span>
+                </label>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="افزودن رنگ" class="btn btn-light" />
+            </div>
+            <div>
+                <a asp-action="List" asp-controller="ProductColor" asp-route-ProductId="ProductId" class="btn btn-primary">بازگشت به صفحه قبل</a>
+            </div>
+        </form>
+    </div>
+
+</div>

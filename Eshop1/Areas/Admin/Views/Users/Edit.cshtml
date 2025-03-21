@@ -1,0 +1,167 @@
+﻿@using Domain.Eshop.Models.Enums
+@using Domain.Eshop.ViewModels.User
+
+@model UpdateUserViewModel
+@{
+    ViewData["Title"] = "ویرایش کاربر";
+}
+
+<h4>ویرایش کاربر</h4>
+
+
+<hr />
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Userid" />
+    <input type="hidden" asp-for="AvatarName" />
+    <div class="col-md-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        <strong>ویرایش اطلاعات کاربر</strong>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="#" onclick="return false;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a href="#" onclick="return false;">اقدام</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="return false;">اقدامی دیگر</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="return false;">چیز دیگری اینجا</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+
+                    <label for="email_address">نام</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" id="email_address1" asp-for="Firstname" class="form-control" placeholder="نام را وارد کنید">
+
+                        </div>
+                    </div>
+                    <label for="email_address">نام خانوادگی</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" id="email_address1" asp-for="Lastname" class="form-control" placeholder="نام خانوادگی را وارد کنید">
+
+                        </div>
+                    </div>
+                    <label for="email_address">موبایل</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="number" id="email_address1" asp-for="Mobile" class="form-control" placeholder="شماره موبایل را وارد کنید">
+                            <span asp-validation-for="Mobile" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <label for="email_address">آدرس ایمیل</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" id="email_address1" asp-for="email" class="form-control" placeholder="آدرس ایمیل  را وارد کنید">
+                            <span asp-validation-for="email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <label for="email_address">وضعیت کاربر</label>
+                    <br />
+                    <br />
+                    <div class="btn-group m-b-10">
+               
+                      
+                        <button type="button" class="btn bg-teal dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="btn-toggle-dropdown" asp-validation-for="Status" >انتخاب کنید</span>
+                        </button>
+                        <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(14px, 36px, 0px);">
+                            <li>
+                                <a href="#" onclick="return false;" value="@UserStatus.Active">فعال</a>
+                            </li>
+                            <li>
+                                <a href="#" onclick="return false;" value="@UserStatus.NotActive">غیر فعال</a>
+                            </li>
+                            <li>
+                                <a href="#" onclick="return false;" value="@UserStatus.Ban">مسدود شده</a>
+                            </li>
+                           
+                        </ul>
+                     
+                    </div>
+
+                    <br>
+                    <button type="submit" class="btn btn-primary m-t-15 waves-effect">ویرایش کاربر</button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 card" style="position:absolute ;top:20px ; left:40px">
+
+            <div class="row">
+                <div class="contact-photo">
+                    <img id="blah" src="/UserAvatar/@Model.AvatarName" class="img-responsive" alt="">
+                </div>
+            </div>
+            <br />
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>فایل</span>
+                    <input type="file" id="imgInp" name="AvatarFile">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+            @{
+                List<Role>? roles = ViewData["Roles"] as List<Role>;
+            }
+            @foreach (Role role in roles)
+            {
+                <div class="col-sm-6 col-lg-3">
+
+                    <p>
+                        <label>
+                            <input type="checkbox" value="@role.Id" name="RoleIds" @((Model.RoleIds.Any(V => V == role.Id) ? "checked" : ""))>
+                            <span>@role.RoleTitle</span>
+                        </label>
+                    </p>
+
+                </div>
+            }
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files
+            if (file) {
+                blah.src = URL.createObjectURL(file)
+            }
+        }
+    </script>
+}

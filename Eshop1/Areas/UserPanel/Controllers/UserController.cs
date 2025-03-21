@@ -44,7 +44,7 @@ namespace Eshop1.Areas.UserPanel.Controllers
 
                 case EditProfileResult.NotFound:
                     TempData[NotFound] = ErrorMessages.NotFounds;
-                    return View(result);
+                    return View();
             }
 
             return View(model);

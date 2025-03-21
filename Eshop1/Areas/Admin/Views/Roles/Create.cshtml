@@ -1,0 +1,172 @@
+﻿@using Domain.Eshop.ViewModels.Permission
+@using Domain.Eshop.ViewModels.Role
+@model CreateRoleViewModel
+
+@{
+    ViewData["Title"] = "ایجاد نقش";
+}
+
+<h4 style="border:4px">ایجاد نقش جدید</h4>
+<br />
+<hr />
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <div class="col-md-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        <strong>ثبت نقش جدید</strong>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="#" onclick="return false;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a href="#" onclick="return false;">اقدام</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="return false;">اقدامی دیگر</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="return false;">چیز دیگری اینجا</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+
+                    <label for="email_address">عنوان نقش</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" id="email_address1" asp-for="RoleTitle" class="form-control" placeholder="عنوان نقش را وارد کنید">
+
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-light m-t-15 waves-effect">ثبت نقش</button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 card" style="position:absolute ;top:20px ; left:40px">
+            <div class="header">
+
+                <h5>
+                    دسترسی های این نقش را انتخاب کنید
+                </h5>
+            </div>
+            <ul>
+                @foreach (PermissionViewModel item in Model.Permissions.Where(c => c.ParentId == null))
+                {
+                    <li>
+                        <div class="col-sm-6 col-lg-3">
+                            <p>
+                                <label>
+                                    <input type="checkbox" value="@item.PermissionId" name="SelectedPermission">
+                                    <span>@item.PermissionTitle</span>
+                                </label>
+                            </p>
+                        </div>
+                        @if (Model.Permissions.Where(d => d.ParentId == item.PermissionId).Any())
+                        {
+                            <ul>
+                                @foreach (var per in Model.Permissions.Where(d => d.ParentId == item.PermissionId))
+                                {
+                                    <li>
+                                        <div class="col-sm-6 col-lg-3">
+                                            <p>
+                                                <label>
+                                                    <input type="checkbox" value="@per.PermissionId" name="SelectedPermission">
+                                                    <span>@per.PermissionTitle</span>
+                                                </label>
+                                            </p>
+                                        </div>
+
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </li>
+                }
+
+            </ul>
+
+          
+        </div>
+      @*   <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 card" style="position:absolute ;top:20px ; left:40px">
+            <div class="header">
+                <h5>
+                    دسترسی های این نقش را انتخاب کنید
+                </h5>
+            </div>
+            <ul>
+                @foreach (PermissionViewModel item in Model.Permissions.Where(c => c.ParentId == null))
+                {
+                    <li>
+                        <div class="col-sm-6 col-lg-3">
+                            <p>
+                                <label>
+                                    <input type="checkbox" value="@item.PermissionId" name="RoleIds">
+                                    <span>@item.PermissionTitle</span>
+                                </label>
+                            </p>
+                        </div>
+
+                        // اینجا می‌بایست آبجکت‌های زیرمجموعه را در اینجا بررسی کنیم
+                        @{var subPermissions = Model.Permissions.Where(d => d.ParentId == item.PermissionId).ToList();}
+                        @if (subPermissions.Any())
+                        {
+                        <ul>
+                            @foreach (var per in subPermissions)
+                            {
+                                <li>
+                                    <div class="col-sm-6 col-lg-3">
+                                        <p>
+                                            <label>
+                                                <input type="checkbox" value="@per.PermissionId" name="RoleIds">
+                                                <span>@per.PermissionTitle</span>
+                                            </label>
+                                        </p>
+                                    </div>
+
+                                    // اگر این زیرمجموه هم زیرمجموعه داشته باشد
+                                    @{var subSubPermissions = Model.Permissions.Where(d => d.ParentId == per.PermissionId).ToList();}
+                                    @if (subSubPermissions.Any())
+                                    {
+                                    <ul>
+                                        @foreach (var subPer in subSubPermissions)
+                                        {
+                                            <li>
+                                                <div class="col-sm-6 col-lg-3">
+                                                    <p>
+                                                        <label>
+                                                            <input type="checkbox" value="@subPer.PermissionId" name="RoleIds">
+                                                            <span>@subPer.PermissionTitle</span>
+                                                        </label>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                        }
+                    </li>
+                }
+            </ul>
+        </div> *@
+    </div>
+
+</form>
+
+<div>
+    <button asp-action="Index" style="margin-right: 20px;" class="btn btn-primary m-t-15 waves-effect">بازگشت به صفحه قبل</button>
+</div>
+
+

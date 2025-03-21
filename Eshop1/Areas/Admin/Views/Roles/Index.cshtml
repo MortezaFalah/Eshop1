@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Domain.Eshop.Models.User.Role>
+
+@{
+    ViewData["Title"] = "نقش های کاربران";
+}
+<div class="col-12">
+<h4>لیست نقش ها</h4>
+
+<p >
+    <br />
+    <a asp-action="Create" asp-controller="Roles" asp-area="Admin" type="submit" class="btn btn-primary btn-lg m-l-15 waves-effect">
+        افزودن نقش جدید
+
+    </a>
+    <br />
+</p>
+
+</div>
+
+<div class="row  col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-sm-12">
+        <form>
+           
+            <table class="table table-hover js-basic-example contact_list dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                <thead>
+                    <tr role="row">
+
+                        <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 112.483px;" aria-label="نام: activate to sort column ascending"> عنوان نقش</th>
+                        <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 154.217px;" aria-label="تلفن: activate to sort column ascending">  تاریخ ایجاد نقش</th>
+
+                        <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 92.4333px;" aria-label="اقدامات: activate to sort column ascending">اقدامات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr role="row" class="odd">
+                            <td class="center">
+                                @Html.DisplayFor(modelItem => item.RoleTitle)
+                            </td>
+
+                            <td class="center">
+                            
+                                @item.CreateDate.ToShamsi()
+                            </td>
+                            <td class="center">
+                                <button class="btn tblActnBtn" asp-action="Edit" asp-route-id="@item.Id">
+                                    <i class="material-icons">mode_edit</i>
+                                </button>
+                                <button class="btn tblActnBtn" onclick="ConfirmDelete('@Url.Action("Delete","Roles", new{roleid= item.Id})',event)" >
+                                    <i class="material-icons">delete</i>
+                                   
+                                </button>
+
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>

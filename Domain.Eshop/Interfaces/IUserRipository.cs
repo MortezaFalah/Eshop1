@@ -29,6 +29,8 @@ namespace Domain.Eshop.Interfaces
 
         Task<User?> GetUserById(int userid);
 
-    
+        Task<bool> ExistMobileForUpdateAsync(string mobile, int userid);
+
+        Task<bool?> DeleteUserForAdminAsync(int userid);
     }
 }

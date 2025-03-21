@@ -1,0 +1,49 @@
+﻿@using Domain.Eshop.ViewModels.Feature
+@model UpdateFeatureViewModel
+@{
+    ViewData["Title"] = "ویرایش ویژگی محصول";
+}
+
+<h4 style="border:4px">ویرایش ویژگی محصول</h4>
+<br />
+<hr />
+<div class="row  col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-4">
+        <form asp-action="Update">
+            <input type="hidden" asp-for="ProductId" name="ProductId" />
+            <input type="hidden" asp-for="FeatureId" name="FeatureId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Value" class="control-label"></label>
+                <input asp-for="Value" class="form-control" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order" class="control-label"></label>
+                <input asp-for="Order" class="form-control" />
+                <span asp-validation-for="Order" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ویرایش ویژگی" class="btn btn-primary" />
+            </div>
+            <div>
+                <a asp-area="Admin" asp-controller="ProductFeature" asp-action="List" >بازگشت به صفحه قبل</a>
+                
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

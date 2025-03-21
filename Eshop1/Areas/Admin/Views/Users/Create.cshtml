@@ -1,0 +1,144 @@
+﻿@using Domain.Eshop.ViewModels.User
+@model CreateUserViewModel
+@{
+    ViewData["Title"] = "افزودن کاربر";
+}
+
+<h4>کاربر جدید</h4>
+
+
+<hr />
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <div class="col-md-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        <strong>ثبت کاربر جدید</strong>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="#" onclick="return false;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a href="#" onclick="return false;">اقدام</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="return false;">اقدامی دیگر</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="return false;">چیز دیگری اینجا</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+
+                    <label for="email_address">نام</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" id="email_address1" asp-for="Firstname" class="form-control" placeholder="نام را وارد کنید">
+
+                        </div>
+                    </div>
+                    <label for="email_address">نام خانوادگی</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" id="email_address1" asp-for="Lastname" class="form-control" placeholder="نام خانوادگی را وارد کنید">
+
+                        </div>
+                    </div>
+                    <label for="email_address">آدرس ایمیل</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" id="email_address1" asp-for="email" class="form-control" placeholder="آدرس ایمیل  را وارد کنید">
+                            <span asp-validation-for="email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <label for="email_address">شماره موبایل</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" id="email_address1" asp-for="Mobile" class="form-control" placeholder="شماره موبایل را وارد کنید">
+                            <span asp-validation-for="Mobile" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <label for="password">رمز عبور</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" id="password" asp-for="Password" class="form-control" placeholder="رمز عبور را وارد کنید">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <br>
+                    <button type="submit" class="btn btn-primary m-t-15 waves-effect">ثبت کاربر</button>
+
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 card" style="position:absolute ;top:20px ; left:40px">
+
+            <div class="row">
+                <div class="contact-photo">
+                    <img id="blah" src="/Admin/images/usrbig.jpg" class="img-responsive" alt="">
+                </div>
+            </div>
+            <br />
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>فایل</span>
+                    <input type="file" id="imgInp" asp-for="AvatarFile" name="useravatar">
+                </div>
+                <div class="file-path-wrapper">
+                    <input  class="file-path validate" type="text">
+                </div>
+            </div>
+            @{
+                List<Role>? roles = ViewData["Roles"] as List<Role>;
+            }
+            @foreach(Role role in roles)
+            {
+                <div class="col-sm-6 col-lg-3">
+                   
+                        <p>
+                            <label>
+                            <input type="checkbox" value="@role.Id" name="RoleIds">
+                                <span>@role.RoleTitle</span>
+                            </label>
+                        </p>
+                   
+                </div>
+            }
+
+
+        </div>
+       
+    </div>
+
+</form>
+
+<div>
+    <a asp-action="Index">بازگشت به صفحه قبل</a>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files
+            if (file) {
+                blah.src = URL.createObjectURL(file)
+            }
+        }
+    </script>
+}

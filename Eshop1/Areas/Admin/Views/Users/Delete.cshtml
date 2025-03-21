@@ -1,0 +1,97 @@
+﻿@model Domain.Eshop.Models.User.User
+
+@{
+    ViewData["Title"] = "حذف کاربر";
+}
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+<h4>حذف</h4>
+<br />
+<h3>آیا از حذف @Model.Firstname @Model.Lastname مطمئنید؟</h3>
+<br />
+
+</div>
+<form method="post" asp-action="Delete">
+    <div class="col-md-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        <strong>ثبت کاربر جدید</strong>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <a href="#" onclick="return false;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a href="#" onclick="return false;">اقدام</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="return false;">اقدامی دیگر</a>
+                                </li>
+                                <li>
+                                    <a href="#" onclick="return false;">چیز دیگری اینجا</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+
+                    <label for="email_address">نام</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" readonly id="email_address1" asp-for="Firstname" class="form-control" placeholder="نام را وارد کنید">
+
+                        </div>
+                    </div>
+                    <label for="email_address">نام خانوادگی</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" readonly id="email_address1" asp-for="Lastname" class="form-control" placeholder="نام خانوادگی را وارد کنید">
+
+                        </div>
+                    </div>
+                    <label for="email_address">آدرس ایمیل</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" readonly id="email_address1" asp-for="email" class="form-control" placeholder="آدرس ایمیل  را وارد کنید">
+                           
+                        </div>
+                    </div>
+                    <label for="email_address">شماره موبایل</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" readonly id="email_address1" asp-for="Mobile" class="form-control" placeholder="شماره موبایل را وارد کنید">
+                           
+                        </div>
+                    </div>
+                    <label for="email_address">وضعیت</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" readonly id="email_address1" asp-for="Status" class="form-control" placeholder="وضعیت کاربر">
+                          
+                        </div>
+                    </div>
+                    <label for="email_address">تاریخ عضویت کاربر</label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" readonly id="email_address1" asp-for="CreateDate" class="form-control" placeholder="تاریخ عضویت کاربر">
+                          
+                        </div>
+                    </div>
+                    <br>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="حذف" class="btn btn-danger" /> 
+                    <a asp-action="Index">بازگشت به عقب</a>
+
+                </div>
+            </div>
+        </div>
+
+
+       
+    </div>
+
+</form>

@@ -1,0 +1,184 @@
+﻿@using Domain.Eshop.ViewModels.Product
+@using Domain.Eshop.ViewModels.ProductCategory
+
+@model CreateProductViewModel
+@{
+    ViewData["Title"] = "افزودن محصول";
+}
+
+
+
+
+
+<div class="row" style="padding:10px;">
+    <form method="post" asp-action="Create" class="row col-md-12" enctype="multipart/form-data">
+        <div class="col-md-7">
+            <div class="card">
+
+                <div class="header">
+                    <h4>@ViewData["Title"]</h4>
+                </div>
+                <div class="body">
+                    @* <input type="hidden" id="slugOutput" asp-for="slug" class="form-control" placeholder="slug را وارد کنید"> *@
+
+                    <div class="form-group">
+                        <label for="titleInput">نام</label>
+                        <div class="form-line">
+                            <input type="text" asp-for="Title" id="titleInput" class="form-control" placeholder="نام محصول را وارد کنید">
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email_address">قیمت محصول</label>
+                        <div class="form-line">
+                            <input type="number" id="email_address1" asp-for="Price" class="form-control" placeholder="قیمت محصول را وارد کنید">
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email_address">تعداد محصول</label>
+                        <div class="form-line">
+                            <input type="number" id="email_address1" asp-for="Quantity" class="form-control" placeholder="تعداد محصول را وارد کنید">
+                            <span asp-validation-for="Quantity" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="slugOutput">Slug</label>
+                        <div class="form-line">
+                            <input type="text" id="slugOutput" asp-for="slug" class="form-control" placeholder="slug را وارد کنید">
+                          @*   <span asp-validation-for="slug" class="text-danger"></span> *@
+                        </div>
+                    </div>
+
+
+
+                    @{
+                        List<ProductCategoryViewModel>? parentCategory = ViewData["Category"] as List<ProductCategoryViewModel>;
+                        var selectlist = new SelectList(parentCategory, "Id", "Title");
+                    }
+
+
+                    <div class="form-group">
+                        <label class="control-label">انتخاب گروه</label>
+                        <select class="form-control" value="Id" style="font-size:15px" name="CategoryId" asp-items="selectlist">
+                            <option disabled="" selected="">انتخاب دسته بندی</option>
+
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email_address">گارانتی</label>
+                        <div class="form-line">
+                            <input type="text" id="email_address1" asp-for="warranty" class="form-control" placeholder="گارانتی را وارد کنید">
+                            <span asp-validation-for="warranty" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" asp-for="FreeShiping" name="RoleIds">
+                            <span asp-validation-for="FreeShiping">آیا ارسال محصول رایگان است؟</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" onclick="return generateSlug();" class="btn btn-success m-t-15 waves-effect">ثبت محصول</button>
+                        <br /><br />
+                        <a asp-action="List" asp-controller="Product" asp-area="Admin" class="btn btn-primary">بازگشت به صفحه قبل</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="card">
+                <div class="header">
+                    <h5>عکس محصول</h5>
+                </div>
+                <div class="body">
+                    <div class="row">
+                        <div class="contact-photo">
+                            <img id="blah" src="/Admin/images/usrbig.jpg" class="img-responsive" alt="">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>فایل</span>
+                            <input type="file" id="imgInp" asp-for="Avatar" name="Avatar">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <label for="email_address">توضیحات محصول</label>
+                    <div class="form-line">
+                        <textarea type="text" id="email_address1" asp-for="Description" class="form-control" placeholder="توضیحات محصول را وارد کنید">
+
+                                    </textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email_address">نقد و بررسی</label>
+                    <div class="form-line">
+                        <input type="text" id="email_address1" asp-for="Review" class="form-control" placeholder="نقد و بررسی را وارد کنید">
+                        <span asp-validation-for="Review" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email_address">هشدار</label>
+                    <div class="form-line">
+                        <input type="text" id="email_address1" asp-for="warning" class="form-control" placeholder="هشدار را وارد کنید">
+                        <span asp-validation-for="warning" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+
+<script>
+
+    imgInp.onchange = evt => {
+        const [file] = imgInp.files
+        if (file) {
+            blah.src = URL.createObjectURL(file)
+        }
+    }
+</script>
+
+<script>
+
+    function generateSlug() {
+        const titleInput = document.getElementById("titleInput").value;
+
+        const invalidChars = /[!#@@$%^&*(),.?":{}|<>]/g;
+        if (invalidChars.test(titleInput)) {
+            alert("عنوان محصول نمی‌تواند شامل کاراکترهای خاص باشد.");
+            return false;
+        }
+
+        const slug = titleInput.trim().replace(/\s+/g, '-');
+        document.getElementById("slugOutput").value = slug;
+
+        return true;
+    }
+</script>
+
+
+}
+

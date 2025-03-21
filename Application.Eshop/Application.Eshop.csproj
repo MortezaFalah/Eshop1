@@ -11,12 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Convertor\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Melipayamak.RestClient" Version="1.0.0" />
     <PackageReference Include="RedmentCore.Communication.Sms.MeliPayamak" Version="6.1.2.1" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.5" />
   </ItemGroup>
 
 </Project>

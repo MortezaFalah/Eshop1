@@ -24,6 +24,25 @@ namespace Infra.IOC.Eshop.Container
             service.AddScoped<IAccountService, AccountService>();
 
             service.AddScoped<ISmsSender,SmsSender>();
+
+            service.AddScoped<IRoleService, RoleService>();
+
+            service.AddScoped<IProductCategoryService, ProductCategoryService>();
+
+            service.AddScoped<IProductService, ProductService>();
+
+            service.AddScoped<IProductGalleryService, ProductGalleryService>();
+
+            service.AddScoped<IFeatureService, FeatureService>();
+
+            service.AddScoped<IProductFeatureService, ProductFeatureService>();
+
+            service.AddScoped<IProductColorService, ProductColorService>();
+
+            service.AddScoped<IOrderService, OrderService>();
+
+            service.AddScoped<IProductCommentService, ProductCommentService>();
+
             #endregion
 
 
@@ -32,6 +51,16 @@ namespace Infra.IOC.Eshop.Container
             #region Repository
 
             service.AddScoped<IUserRipository, UserRipository>();
+            service.AddScoped<IRoleRepository, RoleRepository>();
+            service.AddScoped<IUserRoleRepository, UserRoleRepository>();
+            service.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+            service.AddScoped<IProductRepository, ProductRepository>();
+            service.AddScoped<IProductGalleryRepository, ProductGalleryRepository>();
+            service.AddScoped<IFeatureRepository, FeatureRepository>();
+            service.AddScoped<IProductFeatureRepository, ProductFeatureRepository>();
+            service.AddScoped<IProductColorRepository, ProductColorRepository>();     
+            service.AddScoped<IOrderRepository, OrderRepository>();
+            service.AddScoped<IProductCommentRepository, ProductCommentRepository>();
             #endregion
         }
     }
