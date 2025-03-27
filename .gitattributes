@@ -61,3 +61,10 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+# Specify language for C# files  
+*.cs linguist-language=CSharp  
+*.cshtml linguist-language=CSharp  
+*.aspx linguist-language=CSharp  
+
+# Ignore JavaScript files for language statistics  
+*.js linguist-language=None
