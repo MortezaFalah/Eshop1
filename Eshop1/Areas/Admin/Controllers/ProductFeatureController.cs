@@ -27,20 +27,13 @@ namespace Eshop1.Areas.Admin.Controllers
        // {
        //     return View();
        // }
-
-
-
        // [HttpPost]
        // public IActionResult Create(CreateProductFeatureViewModel model)
        // {
           
-
-
-
        //     return View();
        // }
        // #endregion
-
 
        // #region Delete
 

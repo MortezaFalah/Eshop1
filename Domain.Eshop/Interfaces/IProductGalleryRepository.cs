@@ -14,7 +14,6 @@ namespace Domain.Eshop.Interfaces
 
         Task InsertAsync(ProductGallery productGallery);
 
-
         Task SaveAsync();
 
        Task<bool> DeleteAsync(int id);

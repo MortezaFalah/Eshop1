@@ -18,7 +18,6 @@ namespace Infra.Data.Eshop.Repositories
         {
             var Image = await GetByIdAsync(id);
             if (Image == null) { return false;  }
-
             _context.Remove(Image);
             await _context.SaveChangesAsync();
             return true;
