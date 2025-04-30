@@ -22,6 +22,60 @@ namespace Infra.Data.Eshop.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Eshop.Models.ContactUs.ContactUs", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Answer")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("AnswerUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(800)
+                        .HasColumnType("nvarchar(800)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Fullname")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("Ip")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mobile")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnswerUserId");
+
+                    b.ToTable("ContactUs");
+                });
+
             modelBuilder.Entity("Domain.Eshop.Models.Feature.Feature", b =>
                 {
                     b.Property<int>("Id")
@@ -130,6 +184,40 @@ namespace Infra.Data.Eshop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OrderDetailProductColor");
+                });
+
+            modelBuilder.Entity("Domain.Eshop.Models.Product.CommentReaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CommentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CommentReaction");
                 });
 
             modelBuilder.Entity("Domain.Eshop.Models.Product.Product", b =>
@@ -287,6 +375,12 @@ namespace Infra.Data.Eshop.Migrations
                     b.Property<string>("DisAdvantage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Dislike")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Like")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -517,6 +611,53 @@ namespace Infra.Data.Eshop.Migrations
                     b.ToTable("UserRole");
                 });
 
+            modelBuilder.Entity("Domain.Eshop.Models.Wallet.Wallet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Case")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IP")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Payed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RefId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Userid")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("Userid");
+
+                    b.ToTable("Wallet");
+                });
+
             modelBuilder.Entity("OrderDetailProdcutColorOrderDetail", b =>
                 {
                     b.Property<int>("OrderDetailsId")
@@ -547,6 +688,16 @@ namespace Infra.Data.Eshop.Migrations
                     b.ToTable("ProdcutColorOrderDetailProductColor");
                 });
 
+            modelBuilder.Entity("Domain.Eshop.Models.ContactUs.ContactUs", b =>
+                {
+                    b.HasOne("Domain.Eshop.Models.User.User", "AnswerUser")
+                        .WithMany("ContactUs")
+                        .HasForeignKey("AnswerUserId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("AnswerUser");
+                });
+
             modelBuilder.Entity("Domain.Eshop.Models.Order.Order", b =>
                 {
                     b.HasOne("Domain.Eshop.Models.User.User", "User")
@@ -575,6 +726,33 @@ namespace Infra.Data.Eshop.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Domain.Eshop.Models.Product.CommentReaction", b =>
+                {
+                    b.HasOne("Domain.Eshop.Models.Product.ProductComment", "ProductComment")
+                        .WithMany("CommentReactions")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Eshop.Models.Product.Product", "Product")
+                        .WithMany("CommentReactions")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Eshop.Models.User.User", "User")
+                        .WithMany("CommentReactions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("ProductComment");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Eshop.Models.Product.Product", b =>
@@ -702,6 +880,24 @@ namespace Infra.Data.Eshop.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Eshop.Models.Wallet.Wallet", b =>
+                {
+                    b.HasOne("Domain.Eshop.Models.Order.Order", "Order")
+                        .WithMany("Wallets")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Domain.Eshop.Models.User.User", "User")
+                        .WithMany("Wallets")
+                        .HasForeignKey("Userid")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("OrderDetailProdcutColorOrderDetail", b =>
                 {
                     b.HasOne("Domain.Eshop.Models.Order.OrderDetail", null)
@@ -740,10 +936,14 @@ namespace Infra.Data.Eshop.Migrations
             modelBuilder.Entity("Domain.Eshop.Models.Order.Order", b =>
                 {
                     b.Navigation("OrderDetails");
+
+                    b.Navigation("Wallets");
                 });
 
             modelBuilder.Entity("Domain.Eshop.Models.Product.Product", b =>
                 {
+                    b.Navigation("CommentReactions");
+
                     b.Navigation("OrderDetails");
 
                     b.Navigation("ProductColors");
@@ -762,6 +962,11 @@ namespace Infra.Data.Eshop.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("Domain.Eshop.Models.Product.ProductComment", b =>
+                {
+                    b.Navigation("CommentReactions");
+                });
+
             modelBuilder.Entity("Domain.Eshop.Models.User.Permission", b =>
                 {
                     b.Navigation("PermissionRole");
@@ -778,11 +983,17 @@ namespace Infra.Data.Eshop.Migrations
 
             modelBuilder.Entity("Domain.Eshop.Models.User.User", b =>
                 {
+                    b.Navigation("CommentReactions");
+
+                    b.Navigation("ContactUs");
+
                     b.Navigation("Order");
 
                     b.Navigation("ProductComment");
 
                     b.Navigation("UserRole");
+
+                    b.Navigation("Wallets");
                 });
 #pragma warning restore 612, 618
         }

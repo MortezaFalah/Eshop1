@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Domain.Eshop.Models.Product;
 using Domain.Eshop.Models.Feature;
 using Domain.Eshop.Models.Order;
+using Domain.Eshop.Models.Wallet;
+using Domain.Eshop.Models.ContactUs;
 
 namespace Infra.Data.Eshop.Context
 {
@@ -22,6 +24,7 @@ namespace Infra.Data.Eshop.Context
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
             //modelBuilder.Entity<User>().HasQueryFilter(t=>t.IsDelete==false);
         }
 
@@ -54,6 +57,10 @@ namespace Infra.Data.Eshop.Context
 
         public DbSet<ProductComment> ProductComment { get; set; }
 
+        public DbSet<CommentReaction> CommentReaction { get; set; }
+
+
+
         #endregion
 
 
@@ -82,6 +89,18 @@ namespace Infra.Data.Eshop.Context
         public DbSet<OrderDetail> OrderDetail { get; set; }
 
         public DbSet<ProdcutColorOrderDetail> OrderDetailProductColor { get; set; }
+
+        #endregion
+
+        #region Wallet 
+
+        public DbSet<Wallet> Wallet { get; set; }
+
+        #endregion
+
+        #region ContactUs
+
+        public DbSet<ContactUs> ContactUs { get; set; }
 
         #endregion
 

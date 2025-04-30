@@ -83,6 +83,8 @@ namespace Domain.Eshop.Models.Product
 
         public ICollection<ProductComment>? ProductComment { get; set; }
 
+        public ICollection<CommentReaction>? CommentReactions { get; set; }
+
         #endregion
     }
 }

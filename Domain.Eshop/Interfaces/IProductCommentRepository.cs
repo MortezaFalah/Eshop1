@@ -1,4 +1,5 @@
-﻿using Domain.Eshop.ViewModels.ProductComment;
+﻿using Domain.Eshop.Models.Product;
+using Domain.Eshop.ViewModels.ProductComment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,20 @@ namespace Domain.Eshop.Interfaces
         Task<bool> IsExistProduct(int productid);
 
         void SaveChangeAsync();
+
+
+        #region ForAdminSide
+
+        Task<List<ProductComment>> GetAllCommentAsyncAdminSide(int productid);
+
+        Task<ProductComment?> GetByIdAsync(int commentid);
+
+        Task ConfirmComment(int commentid);
+
+        Task RejectComment(int commentid);
+
+        #endregion
     }
 
-   
+
 }

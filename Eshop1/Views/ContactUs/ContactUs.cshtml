@@ -1,0 +1,84 @@
+﻿@using Domain.Eshop.ViewModels.ContactUs
+@model CreateContactUsViewModel
+
+
+@{
+    ViewData["Title"] = "ارتباط با ما";
+}
+
+<main class="page-content">
+    <div class="container">
+        <!-- start of box => contact-us -->
+        <div class="ui-box bg-white">
+            <div class="ui-box-title fs-5 fw-bold">تماس با ما</div>
+            @* <div class="ui-box-subtitle flex-wrap">
+                لطفاً پیش از ارسال ایمیل یا تماس تلفنی، ابتدا <a href="#" class="link mx-2">پرسش های متداول</a>
+                را
+                مشاهده کنید.
+            </div> *@
+            <div class="ui-box-content">
+                <div class="fs-7 text-secondary mb-5">
+                    برای پیگیری یا سوال درباره سفارش و ارسال پیام بهتر است از
+                    فرم
+                    زیر استفاده کنید.
+                </div>
+                <!-- start of contact-us-form -->
+                <form  class="contact-us-form" method="post" asp-action="ContactUs" asp-controller="ContactUs" asp-area="">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- start of form-element -->
+                            <div class="form-element-row mb-5">
+                                <label asp-for="Title" class="label">موضوع</label>
+                                <input type="text" asp-for="Title" class="form-control" placeholder="پیگیری درخواست">
+                                <span asp-validation-for="Title"></span>
+                            </div>
+                            <!-- end of form-element -->
+                        </div>
+                        <div class="col-md-6">
+                            <!-- start of form-element -->
+                            <div class="form-element-row mb-5">
+                                <label asp-for="FullName" class="label">نام و نام خانوادگی</label>
+                                <input asp-for="FullName" type="text" class="form-control" placeholder="نام کامل">
+                                <span asp-validation-for="FullName"></span>
+                            </div>
+                            <!-- end of form-element -->
+                        </div>
+                        <div class="col-md-6">
+                            <!-- start of form-element -->
+                            <div class="form-element-row mb-5">
+                                <label asp-for="Email" class="label">ایمیل</label>
+                                <input asp-for="Email" type="text" class="form-control" placeholder="example@example.com">
+                                <span asp-validation-for="Email"></span>
+                            </div>
+                            <!-- end of form-element -->
+                        </div>
+                        <div class="col-md-6">
+                            <!-- start of form-element -->
+                            <div class="form-element-row mb-5">
+                                <label asp-for="Mobile" class="label">تلفن تماس</label>
+                                <input asp-for="Mobile" type="text" class="form-control" placeholder="09xxxxxxxxx">
+                                <span asp-validation-for="Mobile"></span>
+                            </div>
+                            <!-- end of form-element -->
+                        </div>
+                        <div class="col-12">
+                            <!-- start of form-element -->
+                            <div class="form-element-row mb-5">
+                                <label asp-for="Description" class="label">پیام</label>
+                                <textarea asp-for="Description" rows="5" class="form-control" placeholder="متن پیام"></textarea>
+                                <span asp-validation-for="Description"></span>
+                            </div>
+                            <!-- end of form-element -->
+                        </div>
+                       
+                        <div class="col-12 text-end">
+                            <button type="submit" class="btn btn-primary px-4">ثبت و ارسال</button>
+                        </div>
+                    </div>
+                </form>
+                <!-- end of contact-us-form -->
+            </div>
+        </div>
+        <!-- end of box => contact-us -->
+    </div>
+</main>

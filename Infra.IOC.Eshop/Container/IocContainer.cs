@@ -43,6 +43,11 @@ namespace Infra.IOC.Eshop.Container
 
             service.AddScoped<IProductCommentService, ProductCommentService>();
 
+            service.AddScoped<IWalletService, WalletService>();
+
+
+            service.AddScoped<IContactUsService, ContactUsService>();
+
             #endregion
 
 
@@ -61,6 +66,9 @@ namespace Infra.IOC.Eshop.Container
             service.AddScoped<IProductColorRepository, ProductColorRepository>();     
             service.AddScoped<IOrderRepository, OrderRepository>();
             service.AddScoped<IProductCommentRepository, ProductCommentRepository>();
+            service.AddScoped<IWalletRipository, WalletRipository>();
+            service.AddScoped<IContactUsRepository, ContactUsRepository>();
+
             #endregion
         }
     }

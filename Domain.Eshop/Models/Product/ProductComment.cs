@@ -26,6 +26,10 @@ namespace Domain.Eshop.Models.Product
 
         public CommentStatus  Status { get; set; }
 
+        public int? Like { get; set; }
+
+        public int? Dislike { get; set; }
+
         #endregion
 
         #region Relation
@@ -36,6 +40,10 @@ namespace Domain.Eshop.Models.Product
         [ForeignKey(nameof(ProductId))]
         public Product? Product { get; set; }
 
+
+        public ICollection<CommentReaction>? CommentReactions { get; set; }
+
+     
         #endregion
     }
 }

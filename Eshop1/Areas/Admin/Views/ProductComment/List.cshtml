@@ -1,0 +1,173 @@
+﻿@using Application.Eshop.Services.Interfaces
+@using Domain.Eshop.Models.Enums.Product
+@using Domain.Eshop.ViewModels.ProductComment
+@using System.Security.Claims
+
+
+@model List<ProductCommentViewModelAdminSide>
+
+
+@{
+    ViewData["Title"] = " لیست نظرات محصول";
+}
+
+
+<div class="row">
+
+    <div class="col-md-12">
+       
+        @* <div class="card col-md-8" style="padding:20px;">
+            <div class="header">
+                فیلتر ها
+            </div>
+            <div class="body">
+                <form id="filter-search">
+                    <input type="hidden" asp-for="Page" id="Page" name="Page">
+                    <div class="form-group">
+                        <input type="text" id="password" asp-for="ProductName" class="form-control" placeholder="فیلتر بر اساس نام محصول">
+
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="password" asp-for="Price" class="form-control" placeholder="فیلتر بر اساس قیمت">
+
+                    </div>
+                    <div class="form-group">
+                        <select id="password" asp-for="Status" asp-items="Html.GetEnumSelectList<ProductStatus>()" class="form-control" placeholder="فیلتر بر اساس قیمت">
+
+                            <option>
+
+                            </option>
+
+                        </select>
+                        <select id="password" asp-for="Status" asp-items="Enum.GetValues(typeof(ProductStatus)).Cast<ProductStatus>().ToList()" class="form-control" placeholder="فیلتر بر اساس قیمت">
+                            @foreach (var item in .)
+                            {
+                                <option>
+                                    @item
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" asp-action="List" class="btn btn-primary m-t-15 waves-effect">اعمال فیلتر</button>
+
+                    </div>
+
+
+
+                </form>
+
+
+            </div>
+        </div> *@
+        <div class="card" style="padding:30px;">
+            <div class="header">
+                <h4> @ViewData["Title"]</h4>
+                <div class="d-flex justify-content-end">
+                    <a type="submit" class="btn btn-light " asp-area="Admin" asp-controller="Product" asp-action="List">
+                        برگشت
+
+                    </a>
+                </div>
+            </div>
+            
+            <div class="body">
+                <table class="table table-hover js-basic-example contact_list dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                    <thead>
+                        <tr role="row">
+
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 112.483px;" aria-label="نام: activate to sort column ascending"> نام کاربر</th>
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 154.217px;" aria-label="تلفن: activate to sort column ascending">  متن نظر</th>
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 154.217px;" aria-label="تلفن: activate to sort column ascending">  مزایا</th>
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 154.217px;" aria-label="تلفن: activate to sort column ascending">  معایب</th>
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 154.217px;" aria-label="تلفن: activate to sort column ascending">  تاریخ ایجاد</th>
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 154.217px;" aria-label="تلفن: activate to sort column ascending">  وضعیت </th>
+
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 92.4333px;" aria-label="اقدامات: activate to sort column ascending">اقدامات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr role="row" class="odd">
+                                <td class="center">
+                                    @item.UserFullName
+
+                                </td>
+
+                                <td class="center">
+                                    @item.Text
+
+                                </td>
+
+                                <td class="center">
+                                    @item.Advantage
+
+                                </td>
+                                <td class="center">
+                                    @item.DisAdvantage
+
+                                </td>
+                                <td class="center">
+                                    @item.CreateDate.ToShamsi()
+
+                                </td>
+                                <td class="center">
+
+                                    <div class="badge @ChangeColorCommentStatus.GetStatusClass(item.Status)">
+
+                                        @item.Status.GetDisplayName()
+                                    </div>
+
+                                </td>
+
+                                <td class="center">
+
+                                    @if (item.Status == CommentStatus.Pending)
+                                    {
+                                        <a onclick="acceptComment(@item.Id)" class="text-success cursor-pointer">
+                                            <i class="material-icons">check_circle</i>
+
+                                        </a>
+
+                                        <a onclick="rejectComment(@item.Id)" class="text-danger cursor-pointer">
+                                            <i class="material-icons">delete_forever</i>
+
+                                        </a>
+                                    }
+                                    else if (item.Status == CommentStatus.Confirmed)
+                                    {
+                                        <a onclick="rejectComment(@item.Id)" class="text-danger cursor-pointer">
+                                            <i class="material-icons">delete_forever</i>
+
+                                        </a>
+                                    }
+                                    else if (item.Status == CommentStatus.Rejected)
+                                    {
+                                        <a onclick="acceptComment(@item.Id)" class="text-success cursor-pointer">
+                                            <i class="material-icons">check_circle</i>
+
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+@* <partial name="/Areas/Admin/Views/Shared/_AdminPaging.cshtml" model="@Model.GetCurrentPaging()" /> *@
+
+
+
+
+

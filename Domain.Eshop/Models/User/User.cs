@@ -1,6 +1,7 @@
 ﻿using Domain.Eshop.Models.Common;
 using Domain.Eshop.Models.Enums;
 using Domain.Eshop.Models.Product;
+using Domain.Eshop.Models.Wallet;
 using Domain.Eshop.Shared;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Eshop.Models.ContactUs;
+
 
 namespace Domain.Eshop.Models.User
 {
@@ -52,5 +55,11 @@ namespace Domain.Eshop.Models.User
         public ICollection<Domain.Eshop.Models.Order.Order>? Order { get; set; }
 
         public ICollection<ProductComment>? ProductComment { get; set; }
+
+        public ICollection<CommentReaction>? CommentReactions { get; set; }
+
+        public ICollection<Domain.Eshop.Models.Wallet.Wallet>? Wallets { get; set; }
+
+        public ICollection<ContactUs.ContactUs>? ContactUs { get; set; }
     }
 }

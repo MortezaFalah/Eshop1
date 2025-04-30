@@ -30,6 +30,8 @@ namespace Domain.Eshop.Models.Order
         [ForeignKey(nameof(UserId))]
         public Domain.Eshop.Models.User.User? User { get; set; }
 
+        public ICollection<Wallet.Wallet>? Wallets { get; set; }
+
         #endregion
     }
 }

@@ -1,0 +1,181 @@
+﻿@using Domain.Eshop.Models.Enums.Wallet
+@using Domain.Eshop.ViewModels.Wallet
+@model FilterWalletAdminViewModel
+
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card col-md-8" style="padding:20px;">
+            <div class="header">
+                فیلتر ها
+            </div>
+            <div class="body">
+                @*   <form id="filter-search">
+                    <input type="hidden" asp-for="Page" id="Page" name="Page">
+                    <div class="form-group">
+                        <input type="text" id="password" asp-for="ProductName" class="form-control" placeholder="فیلتر بر اساس نام محصول">
+
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="password" asp-for="Price" class="form-control" placeholder="فیلتر بر اساس قیمت">
+
+                    </div>
+                    <div class="form-group">
+                        <select id="password" asp-for="Status" asp-items="Html.GetEnumSelectList<ProductStatus>()" class="form-control" placeholder="فیلتر بر اساس قیمت">
+
+                            <option>
+
+                            </option>
+
+                        </select>
+                        <select id="password" asp-for="Status" asp-items="Enum.GetValues(typeof(ProductStatus)).Cast<ProductStatus>().ToList()" class="form-control" placeholder="فیلتر بر اساس قیمت">
+                            @foreach (var item in .)
+                            {
+                                <option>
+                                    @item
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" asp-action="List" class="btn btn-primary m-t-15 waves-effect">اعمال فیلتر</button>
+
+                    </div>
+
+
+
+                </form> *@
+
+
+            </div>
+        </div>
+        <div class="card" style="padding:30px;">
+            <div class="header">
+                <h4> @ViewData["Title"]</h4>
+            </div>
+
+            <div class="body">
+                <table class="table table-hover js-basic-example contact_list dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                    <thead>
+                        <tr role="row">
+
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 112.483px;" aria-label="نام: activate to sort column ascending"> ایمیل کاربر</th>
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 154.217px;" aria-label="تلفن: activate to sort column ascending">  مبلغ</th>
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 154.217px;" aria-label="تلفن: activate to sort column ascending">  نوع تراکنش</th>
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 154.217px;" aria-label="تلفن: activate to sort column ascending">  دلیل تراکنش</th>
+
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 92.4333px;" aria-label="اقدامات: activate to sort column ascending">وضعیت</th>
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 92.4333px;" aria-label="اقدامات: activate to sort column ascending">زمان ایجاد</th>
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 92.4333px;" aria-label="اقدامات: activate to sort column ascending">توضیحات</th>
+                            <th class="center sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 92.4333px;" aria-label="اقدامات: activate to sort column ascending">کد پیگیری</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model.Entities)
+                        {
+                            <tr role="row" class="odd">
+                                <td class="center">
+                                    @item.UserEmail
+                                </td>
+
+                                <td class="center">
+                                    @item.Price
+
+                                </td>
+                                <td>
+                                    @switch (item.Type)
+                                    {
+                                        case TransactionType.Creditor:
+                                            <span class="badge bg-danger rounded-pill">
+                                                @item.Type.GetDisplayName();
+                                            </span>
+                                            break;
+
+                                        case TransactionType.Deposit:
+                                            <span class="badge bg-success rounded-pill">
+                                                @item.Type.GetDisplayName();
+                                            </span>
+                                            break;
+                                    }
+                                </td>
+                                <td class="center">
+                                    @if (item.Case == TransactionCase.ChargeWallet)
+                                    {
+                                        <span class="badge bg-success rounded-pill">
+                                            @item.Case.GetDisplayName();
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger rounded-pill">
+                                            @item.Case.GetDisplayName();
+                                        </span>
+                                    }
+                                </td>
+                                <td class="center">
+                                    @if (!item.IsPayed)
+                                    {
+                                        <div class="badge col-red">پرداخت نشده</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="badge col-green"> پرداخت شده</div>
+                                    }
+                                </td>
+
+                               
+
+                                <td class="center">
+                                      @item.CreateDate.ToShamsi()
+
+                                </td>        
+                                <td class="center">
+                                      @item.Description
+
+                                </td>     
+                                <td class="center">
+                                      @item.RefId
+
+                                </td>
+                               @*  <td>
+                                    <a class="btn tblActnBtn" asp-area="Admin" asp-controller="ProductColor" asp-action="List" asp-route-ProductId="@item.Id">
+                                        <i class="material-icons">invert_colors</i>
+                                    </a>
+                                    <a class="btn tblActnBtn" asp-area="Admin" asp-controller="ProductFeature" asp-action="List" asp-route-ProductId="@item.Id">
+                                        <i class="material-icons">subject</i>
+                                    </a>
+                                    <a class="btn tblActnBtn" asp-area="Admin" asp-controller="ProductGallery" asp-action="List" asp-route-ProductId="@item.Id">
+                                        <i class="material-icons">perm_media</i>
+                                    </a>
+                                    <a class="btn tblActnBtn" asp-area="Admin" asp-controller="ProductComment" asp-action="List" asp-route-ProductId="@item.Id">
+                                        <i class="material-icons">comment</i>
+                                    </a>
+
+                                    <a class="btn btn-tbl-delete" onclick="ConfirmDelete('@Url.Action("Delete","Product",new{id=item.Id})',event)">
+                                        <i class="material-icons">delete_forever</i>
+
+                                    </a>
+
+                                </td> *@
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+@* <partial name="/Areas/Admin/Views/Shared/_AdminPaging.cshtml" model="@Model.GetCurrentPaging()" /> *@
+
+
+
+
+

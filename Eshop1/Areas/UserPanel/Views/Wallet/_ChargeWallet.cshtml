@@ -1,0 +1,47 @@
+﻿
+
+<div class="ui-box bg-white mb-2">
+    <div class="ui-box-title">شارژ کیف پول</div>
+    <div class="ui-box-content">
+        <form 
+            asp-action="ChargeWallet"
+            asp-controller="Wallet"
+            asp-area="UserPanel"
+            data-ajax="true"
+            data-ajax-method="Post"
+            data-ajax-success="OnSuccessChargeWallet"
+
+            method="post" class="wallet-charge-form">
+            <div class="row align-items-end">
+                <div class="col-md-8 mb-3">
+                    <label class="form-label">مبلغ (تومان)</label>
+                    <input type="number" name="price" class="form-control" placeholder="مثلاً ۱۰۰۰۰" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <button type="submit" class="btn btn-primary w-100 py-2" style="font-size: 14px;">
+                        رفتن به درگاه پرداخت <i class="ri-bank-card-line ms-2"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@* <div class="ui-box bg-white mb-5">
+    <div class="ui-box-title">شارژ کیف پول</div>
+    <div class="ui-box-content">
+        <form action="/wallet/charge" method="get">
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <label class="form-label">مبلغ (تومان)</label>
+                    <input type="number" name="amount" class="form-control" placeholder="مثلاً ۵۰۰۰۰" required>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary w-100 py-2" style="font-size: 14px;">
+                        رفتن به درگاه پرداخت <i class="ri-bank-card-line ms-2"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div> *@

@@ -1,0 +1,143 @@
+﻿@using Domain.Eshop.Models.Enums.Wallet
+@using Domain.Eshop.ViewModels.Wallet
+@using Application.Eshop.Extentions
+@model FilterWalletViewModel
+
+
+@{
+    ViewData["Title"] = "کیف پول شما";
+
+    int investory = (ViewData["inventory"] as int?) ?? 0;
+}
+
+<div class="col-xl-9 col-lg-8 col-md-7">
+
+    <div class="ui-box bg-white mb-5">
+        <div class="row d-flex justify-content-between" >
+            <div class="col-md-12">
+                <div class="ui-box-title align-items-center justify-content-between">
+                    @ViewData["Title"]
+                    (موجودی):
+                    @investory.ToMoney() تومان
+
+                </div>
+            </div>
+            <div class="col-md-12">
+                <span>
+                    
+                </span>
+            </div>
+        </div>
+
+
+        <div class="ui-box-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <partial name="/Areas/UserPanel/Views/Wallet/_ChargeWallet.cshtml" />
+                </div>
+            </div>
+            @if (Model.Entities != null && Model.Entities.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>آیدی تراکنش</th>
+                                <th>مبلغ</th>
+                                <th>نوع تراکنش</th>
+                                <th>دلیل تراکنش</th>
+                                <th>وضعیت</th>
+                                <th>زمان ایجاد</th>
+                                <th>توضیحات</th>
+                                <th>کد پیگیری</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Entities)
+                            {
+                                <tr>
+                                    <td class="center">@item.Id</td>
+                                    <td class="center">@item.Price.ToMoney()</td>
+                                    <td class="center">
+                                        @if (item.Type == TransactionType.Deposit)
+                                        {
+
+                                            <span class="badge bg-success rounded-pill">
+                                                @item.Type.GetDisplayName()
+                                            </span>
+
+
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger rounded-pill">
+                                                @item.Type.GetDisplayName()
+                                            </span>
+
+                                        }
+                                    </td>
+                                    <td class="center">
+                                        @if (item.Case == TransactionCase.ChargeWallet)
+                                        {
+
+                                            <span class="badge bg-success rounded-pill">
+                                                @item.Case.GetDisplayName()
+                                            </span>
+
+                                        }
+                                        else
+                                        {
+
+                                            <span class="badge bg-danger rounded-pill">
+                                                @item.Case.GetDisplayName()
+                                            </span>
+
+                                        }
+                                    </td>
+                                    <td class="center">
+                                        @if (item.IsPayed)
+                                        {
+                                            <span>پرداخت شده </span>
+                                        }
+                                        else
+                                        {
+                                            <span>پرداخت نشده </span>
+                                        }
+                                    </td>
+                                    <td class="center">
+                                        <span class="badge bg-warning rounded-pill">
+                                            @item.CreateDate.ToShamsi()
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <a href="#" class="btn-info"><i class="btn-border-radius">@item.Description</i></a>
+
+                                    </td>
+                                    <td class="center">@item.RefId</td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+            else
+            {
+                <partial name="/Areas/UserPanel/Views/Shared/_SiteNotFoundItem.cshtml" />
+            }
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+@section Script {
+    <script src="/js/User-Charge-Wallet.js"></script>
+}

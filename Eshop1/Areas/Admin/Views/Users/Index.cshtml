@@ -4,16 +4,16 @@
     ViewData["Title"] = "کاربران";
 }
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-<h4>لیست کاربران سایت</h4>
-<br />
-<p>
-    <a asp-action="Create" asp-controller="Users" asp-area="Admin" type="submit" class="btn btn-primary btn-lg m-l-15 waves-effect">
-        افزودن کاربر جدید
-
-    </a>
-
+    <h4>لیست کاربران سایت</h4>
     <br />
-</p>
+    <p>
+        <a asp-action="Create" asp-controller="Users" asp-area="Admin" type="submit" class="btn btn-primary btn-lg m-l-15 waves-effect">
+            افزودن کاربر جدید
+
+        </a>
+
+        <br />
+    </p>
 </div>
 <div class="table-responsive">
     <div id="tableExport_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -73,7 +73,7 @@
                             <td class="center">
                                 <div class="badge col-green">فعال</div>
                             </td>
-                          
+
                         }
                         else
                         {
@@ -86,6 +86,9 @@
                         <td class="center">
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-tbl-edit">
                                 <i class="material-icons">create</i>
+                            </a>
+                            <a class="text-primary" onclick="ShowChargeWalletModal('@Url.Action("ChargeWalletAdmin","Wallet",new {userid=item.Id})')">
+                                <i class="material-icons">attach_money</i>
                             </a>
                             <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-tbl-delete">
                                 <i class="material-icons">delete_forever</i>
@@ -101,3 +104,7 @@
         </table><div class="dataTables_info" id="tableExport_info" role="status" aria-live="polite">نمایش 1 تا 10 از 16 ورودی</div><div class="dataTables_paginate paging_simple_numbers" id="tableExport_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="tableExport_previous"><a href="#" aria-controls="tableExport" data-dt-idx="0" tabindex="0" class="page-link">قبلی</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="tableExport" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="tableExport" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item next" id="tableExport_next"><a href="#" aria-controls="tableExport" data-dt-idx="3" tabindex="0" class="page-link">بعدی</a></li></ul></div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/Admin/js/Admin-Wallet.js"></script>
+}

@@ -106,5 +106,36 @@ namespace Infra.Data.Eshop.Repositories
 
         public void SaveChangeAsync()
              => _context.SaveChangesAsync();
+
+        #region AdminSide
+        public async Task<List<ProductComment>> GetAllCommentAsyncAdminSide(int productid)
+        {
+            List<ProductComment>? PComment = await _context.ProductComment.Where(r => r.ProductId == productid).ToListAsync();
+
+            return PComment;
+
+
+        }
+
+        public async Task<ProductComment?> GetByIdAsync(int commentid)
+             => await _context.ProductComment.FirstOrDefaultAsync(r => r.Id == commentid);
+
+        public async Task ConfirmComment(int commentid)
+        {
+            ProductComment? pc = await GetByIdAsync(commentid);
+            pc.Status = CommentStatus.Confirmed;
+            SaveChangeAsync();
+        }
+
+        public async Task RejectComment(int commentid)
+        {
+            ProductComment? pc = await GetByIdAsync(commentid);
+            pc.Status = CommentStatus.Rejected;
+            SaveChangeAsync();
+        }
+
+
+
+        #endregion
     }
 }

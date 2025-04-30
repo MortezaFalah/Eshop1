@@ -112,9 +112,10 @@
                                     <a class="btn tblActnBtn" asp-area="Admin" asp-controller="ProductGallery" asp-action="List" asp-route-ProductId="@item.Id">
                                         <i class="material-icons">perm_media</i>
                                     </a>
-                                    <a class="btn tblActnBtn" asp-area="Admin" asp-controller="Product" asp-action="Update" asp-route-id="@item.Id">
-                                        <i class="material-icons">mode_edit</i>
+                                    <a class="btn tblActnBtn" asp-area="Admin" asp-controller="ProductComment" asp-action="List" asp-route-ProductId="@item.Id">
+                                        <i class="material-icons">comment</i>
                                     </a>
+                                  
                                     <a class="btn btn-tbl-delete" onclick="ConfirmDelete('@Url.Action("Delete","Product",new{id=item.Id})',event)">
                                         <i class="material-icons">delete_forever</i>
 
