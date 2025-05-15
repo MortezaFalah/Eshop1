@@ -119,7 +119,7 @@ namespace Infra.Data.Eshop.Repositories
                 .Include(c => c.ProductColors)
                 .Include(w => w.ProductFeatures)
                 .ThenInclude(a => a.Feature)
-                .FirstOrDefaultAsync(e => e.Slug == slug && !e.IsDeleted);
+                .FirstOrDefaultAsync(e => e.Slug.Contains(slug) && !e.IsDeleted);
             return model;
         }
 

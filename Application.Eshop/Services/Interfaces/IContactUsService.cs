@@ -11,5 +11,7 @@ namespace Application.Eshop.Services.Interfaces
     public interface IContactUsService
     {
         Task<bool> AddAsync(CreateContactUsViewModel model);
+
+        Task<FilterContactUsAdminViewModel> FilterAsync(FilterContactUsAdminViewModel model);
     }
 }

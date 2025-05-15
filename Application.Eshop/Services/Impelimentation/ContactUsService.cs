@@ -15,5 +15,10 @@ namespace Application.Eshop.Services.Impelimentation
         {
             return await contactUsRepository.AddAsync(model);
         }
+
+        public async Task<FilterContactUsAdminViewModel> FilterAsync(FilterContactUsAdminViewModel model)
+        {
+           return await contactUsRepository.FilterAsync(model);
+        }
     }
 }

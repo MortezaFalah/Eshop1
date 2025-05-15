@@ -11,5 +11,8 @@ namespace Domain.Eshop.Interfaces
     {
         Task<bool> AddAsync(CreateContactUsViewModel model);
 
+
+        Task<FilterContactUsAdminViewModel> FilterAsync(FilterContactUsAdminViewModel model);
+
     }
 }

@@ -10,7 +10,7 @@
         <!-- start of breadcrumb -->
         <nav class="mb-5" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                @if (Model.Categories.Any())
+                @if (Model.Categories!= null && Model.Categories.Any())
                 {
                     foreach (var item in Model.Categories)
                     {
